@@ -38,3 +38,15 @@ https://github.com/tailwindlabs/tailwindcss-forms
 02:42:10 - Orders Page
 02:57:15 - Order Details Page
 03:02:06 - Make it Responsive
+
+
+7d723f9 (HEAD -> main) HEAD@{0}: commit: Login Page UI Created
+e25c718 HEAD@{1}: reset: moving to HEAD~1
+577c03a HEAD@{2}: commit: Cart Page Created Successfully
+e25c718 HEAD@{3}: commit: Witchlist Page UI completed
+841f23d HEAD@{4}: commit: Cart Page Created Successfully
+71ac563 HEAD@{5}: commit: Produc Page UI Create Successfully
+9168a32 HEAD@{6}: commit: Product Listing Created
+a9ccb91 HEAD@{7}: commit: Fix the bugs on navbar
+32284be HEAD@{8}: commit: Navbar Completed successfullu
+7ad6d13 HEAD@{9}: commit (initial): Initial Tailwindcss Setup

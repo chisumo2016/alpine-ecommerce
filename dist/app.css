@@ -787,8 +787,17 @@ select {
 .mt-3 {
   margin-top: 0.75rem;
 }
+.mt-8 {
+  margin-top: 2rem;
+}
 .ml-1 {
   margin-left: 0.25rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mt-16 {
+  margin-top: 4rem;
 }
 .block {
   display: block;
@@ -843,6 +852,9 @@ select {
 }
 .w-10 {
   width: 2.5rem;
+}
+.w-\[400px\] {
+  width: 400px;
 }
 .w-16 {
   width: 4rem;
@@ -983,11 +995,18 @@ select {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.py-48 {
+  padding-top: 12rem;
+  padding-bottom: 12rem;
+}
 .pt-5 {
   padding-top: 1.25rem;
 }
 .pl-6 {
   padding-left: 1.5rem;
+}
+.text-center {
+  text-align: center;
 }
 .text-3xl {
   font-size: 1.875rem;
@@ -1000,6 +1019,10 @@ select {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 .font-bold {
   font-weight: 700;
@@ -1091,6 +1114,36 @@ select {
 .btn-primary:active {
   --tw-bg-opacity: 1;
   background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+}
+
+.btn-emerald {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.btn-emerald:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 150 105 / var(--tw-bg-opacity));
+}
+
+.btn-emerald:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(4 120 87 / var(--tw-bg-opacity));
 }
 
 .wysiwyg-editor {
@@ -1214,6 +1267,8 @@ select {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+
 
 
 
