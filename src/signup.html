@@ -394,14 +394,21 @@
 </header>
 
  <div class="w-[400px] mx-auto mt-16 text-center">
-   <h2 class="text-2xl font-semibold mb-2">Login to your account</h2>
+   <h2 class="text-2xl font-semibold mb-2">Create a New Account</h2>
    <p class="mb-4">
      or
-     <a href="/src/signup.html" class="text-purple-600 hover:text-purple-500">
-       Create New Account
+     <a href="/src/login.html.html"
+        class="text-purple-600 hover:text-purple-500">
+       Login with existing one
      </a>
    </p>
-   <form action="/src/login.html" method="POST">
+   <form action="/src/signup.html" method="post">
+     <div class="mb-3">
+       <input
+         class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
+         type="text"
+         placeholder="Your Name">
+     </div>
      <div class="mb-3">
        <input
          class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
@@ -412,32 +419,19 @@
        <input
          class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
          type="password"
-         placeholder="Your Password">
+         placeholder="Password">
      </div>
-     <div class="flex justify-between mb-3">
-       <div class="flex items-center">
-         <input type="checkbox" id="rememberMe" class="text-purple-600 focus:ring-purple-600 mr-3">
-         <label for="rememberMe" class="text-gray-700"> Remember Me</label>
-       </div>
-       <a href="/src/password-reset.html" class="text-purple-600 hover:text-purple-500 ">Reset Your Password </a>
+     <div class="mb-3">
+       <input
+         class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
+         type="password"
+         placeholder="Repeat Your Password">
      </div>
-   </form>
 
-   <button class=" flex items-center btn-emerald mt-3 hover:bg-emerald justify-center btn-primary w-full">
-     <svg
-       xmlns="http://www.w3.org/2000/svg"
-       class="h-6 w-6 mr-2"
-       fill="none"
-       viewBox="0 0 24 24"
-       stroke="currentColor"
-       stroke-width="2">
-       <path
-         stroke-linecap="round"
-         stroke-linejoin="round"
-         d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-     </svg>
-     Login
-   </button>
+     <button class=" flex items-center btn-emerald mt-3 hover:bg-emerald justify-center btn-primary w-full">
+       Signup
+     </button>
+   </form>
  </div>
 </body>
 </html>
