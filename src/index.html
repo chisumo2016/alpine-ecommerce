@@ -4,14 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../dist/output.css" rel="stylesheet" />
-  <title>Ecommerce Application</title>
-
-  <link href="/dist/app.css" rel="stylesheet" />
-
   <!--  Alpine Js-->
-  <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
+  <title>Ecommerce Application</title>
+  <link href="/dist/app.css" rel="stylesheet" />
+  <script src="app.js"></script>
+  <style>
+    [x-cloak]{
+      display: none !important;
+    }
+  </style>
+
 </head>
-<body class="bg-gray-200">
+<body
+  x-data="index"
+  class="bg-gray-200">
 
 <!--Header -->
 <header
@@ -50,24 +57,36 @@
       <li><a class="block py-2 px-navbar-item transition-all hover:bg-slate-700" href="#">Categories</a></li>
       <li><a class="block py-2 px-navbar-item transition-all hover:bg-slate-700" href="#">Something</a></li>
     </ul>
+
+<!-- Mobile   -->
     <ul class="">
       <li class="">
         <a
-          class="flex items-center py-2 py-2 px-navbar-item transition-all hover:bg-slate-700"
+          class="relative flex items-center justify-between  py-2 px-navbar-item transition-all hover:bg-slate-700"
           href="/src/cart.html">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
+          </div>
           Cart
+          <small
+            x-show="productCounter"
+            x-transition
+            x-cloak
+            x-text="productCounter"
+            class="py-[2px] px-[8px] rounded-full bg-red-400">
+
+          </small>
         </a>
       </li>
       <li
@@ -94,6 +113,7 @@
         <ul
           x-show="open"
           x-transition
+          x-cloak
           class=" w-full z-10 right-0 bg-slate-800 py-2">
           <li>
             <a
@@ -243,21 +263,30 @@
     <ul class="grid grid-flow-col items-center">
       <li class="">
         <a
-          class="flex items-center block py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
+          class="relative flex items-center block py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
           href="/src/cart.html">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
+
           Cart
+          <small
+            x-show="productCounter"
+            x-transition
+            x-text="productCounter"
+            class="absolute top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-400">
+
+          </small>
         </a>
       </li>
       <li
@@ -402,7 +431,9 @@
     </ul>
   </nav>
   <!--  Toggle    -->
-  <button @click="mobileMenuOpen = !mobileMenuOpen" class="block md:hidden">
+  <button
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    class="block md:hidden">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6"
@@ -418,23 +449,24 @@
   </button>
 </header>
 
-<!--Product Page List-->
-<div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-5">
-<!-- Product Item -->
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-      <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+<main class="p-5">
+  <!--Product Page List-->
+  <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-5">
+    <!-- Product Item -->
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -445,21 +477,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -469,37 +502,38 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart-21
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -510,55 +544,57 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           btn-primary
           ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -569,21 +605,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -593,37 +630,38 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -634,21 +672,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -658,37 +697,38 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -699,21 +739,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -723,37 +764,38 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -764,21 +806,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -788,37 +831,38 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -829,21 +873,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -853,37 +898,38 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
-    <a href="/src/product.html">
-      <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
-    </a>
-    <div class="p-3">
-      <h3>
-        <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
-          Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
-        </a>
-      </h3>
-       <p class="text-xl font-bold font-semibold">£ 17.90</p>
-      <div class="flex justify-between mt-3">
-        <button
-          class="flex
+    <div class="bg-white overflow-hidden rounded-md shadow  transition-colors border border-gray-300 hover:border-purple-600  ">
+      <a href="/src/product.html">
+        <img src="/src/images/1_1.jpeg" alt="" class="rounded-t-md transition hover:scale-105 hover:rotate-1">
+      </a>
+      <div class="p-3">
+        <h3>
+          <a href="/src/product.html" class="text-black  font-semibold hover:text-gray-600">
+            Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11
+          </a>
+        </h3>
+        <p class="text-xl font-bold font-semibold">£ 17.90</p>
+        <div class="flex justify-between mt-3">
+          <button
+            @click="addToCart"
+            class="flex
                  items-center
                  justify-center
                  text-purple-600
@@ -894,21 +940,22 @@
                  active:bg-purple-800
                  border-2 border-purple-700
                  w-10 h-10 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-        <button
-          class="flex
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button
+            @click="addToCart"
+            class="flex
           items-center
           bg-purple-600
           text-white
@@ -918,27 +965,67 @@
           hover:bg-purple-700
           active:bg-purple-800
           shadow-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Add to Cart
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <!-- End Product Item -->
+    <!-- End Product Item -->
+  </div>
+  <!-- End Product List -->
+</main>
+
+<!--Notification-->
+<div
+    x-show="toast.visible"
+    x-transition
+    x-cloak
+    class="absolute w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
+    >
+<div class="font-semibold" x-text="toast.message"></div>
+
+<!--  <div class="text-sm" x-text="toast.message"></div>-->
+<button
+  @click="close"
+  class="absolute flex items-center justify-center right-2 top-2 w-[30px] h-[30px] rounded-full hover:bg-black/10 transition-colors"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+</button>
+
+<!--Build Progress Component-->
+<div>
+  <div
+    class="absolute left-0 bottom-0 right-0 h-[6px] bg-black/10"
+    :style="{'width': `${toast.percent}%`}"
+  ></div>
 </div>
-<!-- End Product List -->
+</div>
 </body>
 </html>
