@@ -394,254 +394,115 @@
 </header>
 
 <div class="container mx-auto lg:w-2/3 p-5">
-    <h1 class="text-3xl font-bold mb-2">My Orders</h1>
+  <div class="p-5">
+    <h1 class="text-3xl font-bold mb-2">My Order Details</h1>
     <div class="bg-white rounded-lg p-3">
-      <table class="table-auto w-full">
-        <thead>
-          <tr class="border-b-2">
-            <th class="text-left p-2">Order # </th>
-            <th class="text-left p-2">Date </th>
-            <th class="text-left p-2">Status</th>
-            <th class="text-left p-2">SubTotal</th>
-            <th class="text-left p-2">Actions</th>
-          </tr>
-        </thead>
+      <table>
         <tbody>
-            <tr class="border-b">
-              <td class="py-1 px-2">
-                <a href="/src/order-details.html" class="text-purple-600 hover:text-purple-500">#1234</a>
-              </td>
-              <td class="p-2">
-                24th of June, 21:00
-              </td>
-              <td class="py-1 px-2">
+            <tr>
+              <td class="font-bold py-1 px-2">Order #</td>
+              <td>1234</td>
+            </tr>
+            <tr>
+              <td class="font-bold py-1 px-2">Order Date</td>
+              <td>10th June 2022 12:00</td>
+            </tr>
+            <tr>
+              <td class="font-bold py-1 px-2">Order Status</td>
+              <td>
                 <span class="bg-gray-400 text-white py-1 px-2 rounded">Unpaid</span>
               </td>
-              <td class="py-1 px-2">
-                $ 154
-              </td>
-              <td class="py-1 px-2 flex gap-3 w-[200px]">
-                <a href="#" class="flex items-center btn-emerald py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  View Invoice
-                </a>
-                <a href="#" class="flex items-center btn-primary py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                  Pay
-                </a>
-              </td>
             </tr>
-            <tr class="border-b">
-              <td class="py-1 px-2">
-                <a href="/src/order-details.html" class="text-purple-600 hover:text-purple-500">#1234</a>
-              </td>
-              <td class="p-2">
-                24th of June, 21:00
-              </td>
-              <td class="p-2">
-                <span class="bg-gray-400 text-white py-1 px-2 rounded">Unpaid</span>
-              </td>
-              <td class="p-2">
-                $ 154
-              </td>
-              <td class="flex gap-3 w-[200px] py-1 px-2">
-                <a href="#" class="flex items-center btn-emerald py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  View Invoice
-                </a>
-                <a href="#" class="flex items-center btn-primary py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                  Pay
-                </a>
-              </td>
-            </tr>
-            <tr class="border-b">
-              <td class="py-1 px-2">
-                <a href="/src/order-details.html" class="text-purple-600 hover:text-purple-500">#1234</a>
-              </td>
-              <td class="py-1 px-2">
-                24th of June, 21:00
-              </td>
-              <td class="p-2">
-                <span class="bg-emerald-600 text-white py-1 px-2 rounded">Paid</span>
-              </td>
-              <td class="py-1 px-2">
-                $ 154
-              </td>
-              <td class="flex gap-3 w-[200px] py-1 px-2 ">
-                <a href="#" class="flex items-center btn-emerald py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  View Invoice
-                </a>
-                <a href="#" class="flex items-center btn-primary whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                  Pay
-                </a>
-              </td>
-            </tr>
-            <tr class="border-b">
-              <td class="py-1 px-2">
-                <a href="/src/order-details.html" class="text-purple-600 hover:text-purple-500">#1234</a>
-              </td>
-              <td class="py-1 px-2">
-                24th of June, 21:00
-              </td>
-              <td class="p-2">
-
-                <span class="bg-red-400 text-white py-1 px-2 rounded">Failed</span>
-
-              </td>
-              <td class="py-1 px-2">
-                $ 154
-              </td>
-              <td class="flex gap-3 w-[200px] py-1 px-2 ">
-                <a href="#" class="flex items-center btn-emerald py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  View Invoice
-                </a>
-                <a href="#" class="flex items-center btn-primary py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                  Pay
-                </a>
-              </td>
-            </tr>
-            <tr class="border-b">
-              <td class="py-1 px-2">
-                <a href="/src/order-details.html" class="text-purple-600 hover:text-purple-500">#1234</a>
-              </td>
-              <td class="py-1 px-2">
-                24th of June, 21:00
-              </td>
-              <td class="p-2">
-                <span class="bg-orange-400 text-white py-1 px-2 rounded">Pending</span>
-              </td>
-              <td class="py-1 px-2">
-                $ 154
-              </td>
-              <td class="flex gap-3 w-[200px] py-1 px-2">
-                <a href="#" class="flex items-center btn-emerald py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  View Invoice
-                </a>
-                <a href="#" class="flex items-center btn-primary py-1 whitespace-nowrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                  Pay
-                </a>
-              </td>
+            <tr>
+              <td class="font-bold py-1 px-2">SubTotal</td>
+              <td>167.99</td>
             </tr>
         </tbody>
       </table>
-    </div
+
+      <hr class="my-4">
+      <!-- Cart Item     -->
+
+      <div class="flex gap-4">
+        <img src="/src/images/1_1.jpeg" alt="" class="w-36">
+        <div class="flex flex-col justify-between ">
+          <div class="flex justify-between mb-3">
+            <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
+            <span class="text-lg font-semibold"> £ 17.99 </span>
+          </div>
+          <div class="flex justify-between items-center">
+            <!--  Input Group-->
+            <div class="flex items-center">
+              Qty:
+              5
+            </div>
+            <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Cart Item    -->
+      <hr class="my-3">
+      <div class="flex gap-4">
+        <img src="/src/images/1_1.jpeg" alt="" class="w-36">
+        <div class="flex flex-col justify-between ">
+          <div class="flex justify-between mb-3">
+            <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
+            <span class="text-lg font-semibold"> £ 17.99 </span>
+          </div>
+          <div class="flex justify-between items-center">
+            <!--  Input Group-->
+            <div class="flex items-center">
+              Qty:
+              5
+            </div>
+            <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Cart Item    -->
+      <hr class="my-3">
+      <div class="flex gap-4">
+        <img src="/src/images/1_1.jpeg" alt="" class="w-36">
+        <div class="flex flex-col justify-between ">
+          <div class="flex justify-between mb-3">
+            <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
+            <span class="text-lg font-semibold"> £ 17.99 </span>
+          </div>
+          <div class="flex justify-between items-center">
+            <!--  Input Group-->
+            <div class="flex items-center">
+              Qty:
+              5
+            </div>
+            <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Cart Item    -->
+      <hr class="my-3">
+      <div class="flex gap-4">
+        <img src="/src/images/1_1.jpeg" alt="" class="w-36">
+        <div class="flex flex-col justify-between ">
+          <div class="flex justify-between mb-3">
+            <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
+            <span class="text-lg font-semibold"> £ 17.99 </span>
+          </div>
+          <div class="flex justify-between items-center">
+            <!--  Input Group-->
+            <div class="flex items-center">
+              Qty:
+              5
+            </div>
+            <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Cart Item    -->
+      <hr class="my-3">
+
+      <button class="btn-primary w-full mt-3"> Make a Payment</button>
+    </div>
+  </div>
 </div>
 </body>
 </html>
