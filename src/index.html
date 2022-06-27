@@ -15,7 +15,7 @@
 
 <!--Header -->
 <header
-
+  x-data="{mobileMenuOpen: false}"
   class="flex justify-between bg-slate-800 text-white px-4">
   <div>
     <a
@@ -24,7 +24,11 @@
   </div>
 
 <!--Mobile Menu-->
-  <div class="block fixed z-20 top-0 left-[-220px]  bottom-0 h-full w-[220px] bg-slate-900 shadow-2xl  transition-all md:hidden">
+  <div
+    x-show="mobileMenuOpen"
+    x-transition
+    class="block fixed z-20 top-0   bottom-0 h-full w-[220px] bg-slate-900 shadow-2xl  transition-all md:hidden"
+    :class="mobileMenuOpen ? 'left-0' : '-left-[-220px]'">
     <ul class="">
       <li>
             <a class="flex items-center py-2 px-navbar-item transition-all hover:bg-slate-700" href="/src/index.html">
@@ -66,10 +70,13 @@
           Cart
         </a>
       </li>
-      <li class="relative">
+      <li
+        x-data="{open : false}"
+        class="relative">
         <a
-          class="flex justify-between items-center py-2 px-navbar-item transition-all hover:bg-slate-700"
-          href="#">My Account 1
+          @click="open = !open"
+          class="cursor-pointer flex justify-between items-center py-2 px-navbar-item transition-all hover:bg-slate-700"
+          href="#">My Account
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5 ml-3"
@@ -85,7 +92,9 @@
         </a>
        <!--  Dropdown      -->
         <ul
-          class=" w-full  bg-slate-800 py-2">
+          x-show="open"
+          x-transition
+          class=" w-full z-10 right-0 bg-slate-800 py-2">
           <li>
             <a
               href="/src/profile.html"
@@ -393,7 +402,7 @@
     </ul>
   </nav>
   <!--  Toggle    -->
-  <button class="block md:hidden">
+  <button @click="mobileMenuOpen = !mobileMenuOpen" class="block md:hidden">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6"

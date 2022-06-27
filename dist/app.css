@@ -742,6 +742,9 @@ select {
 .left-0 {
   left: 0px;
 }
+.-left-\[-220px\] {
+  left: 220px;
+}
 .z-20 {
   z-index: 20;
 }
