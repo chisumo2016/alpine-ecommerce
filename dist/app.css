@@ -1083,6 +1083,10 @@ select {
   padding-top: 12rem;
   padding-bottom: 12rem;
 }
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
 .pt-5 {
   padding-top: 1.25rem;
 }
@@ -1337,6 +1341,10 @@ select {
 }
 
 @media (min-width: 640px) {
+
+  .sm\:w-\[400px\] {
+    width: 400px;
+  }
 
   .sm\:flex-col {
     flex-direction: column;
