@@ -4,27 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../dist/output.css" rel="stylesheet" />
-  <title>Ecommerce Application</title>
   <!-- Alpine Plugins -->
   <script defer src="https://unpkg.com/@alpinejs/persist@3.10.2/dist/cdn.min.js"></script>
-
-  <!-- Alpine Plugins -->
   <script defer src="https://unpkg.com/@alpinejs/collapse@3.10.2/dist/cdn.min.js"></script>
 
-
-  <title>Ecommerce Application</title>
-  <link href="/dist/app.css" rel="stylesheet" />
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
   <!--  Alpine Js-->
   <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
+  <title>Ecommerce Application</title>
+  <link href="/dist/app.css" rel="stylesheet" />
+
   <style>
     [x-cloak]{
       display: none !important;
     }
   </style>
+
 </head>
 <body
-  x-data="productItem"
+  x-data="productItem(1)"
   class="bg-gray-200">
 
 <!--Header -->
@@ -620,13 +618,14 @@
           <label for="quantity" class="block font-bold mr-4">Quantity</label>
           <input
             x-model="quantity"
+            x-ref="quantityEI"
             name="quantity"
             type="number"
             value="1"
             class="w-32 focus:border-purple-500 focus:outline-none rounded">
         </div>
         <button
-          @click="addToCart(quantity)"
+          @click="addToCart(id,$refs.quantityEI.value)"
           class="btn-primary py-4 text-lg  flex justify-center min-w-0 w-full mb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -730,11 +729,9 @@
   </div>
 </main>
 
-
-
 <!-- End Product Item -->
 
-<!--Notification-->
+<!--Toast Notification-->
 <div
   x-data="toast"
   x-show="visible"

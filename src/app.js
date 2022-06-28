@@ -59,7 +59,8 @@ document.addEventListener("alpine:init", () => {
  })),
 
    //Prooduct Item Component
-  Alpine.data('productItem', () => ({
+  Alpine.data('productItem', () => (id) => ({
+    id:id,
     quantity: 1 ,
 
     get watchlistItems(){
@@ -93,7 +94,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     /**Add to Cart**/
-    addToCart(quantity = 1){
+    addToCart(id, quantity = 1){
       this.$store.header.cartItems += parseInt(quantity);
       //this.cartItems++;
       this.$dispatch('notify',{
