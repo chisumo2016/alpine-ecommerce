@@ -17,7 +17,7 @@
 
 </head>
 <body
-  x-data="index"
+  x-data="productItem"
   class="bg-gray-200">
 
 <!--Header -->
@@ -80,10 +80,10 @@
           </div>
           Cart
           <small
-            x-show="cartItems"
+            x-show="$store.header.cartItems"
             x-transition
             x-cloak
-            x-text="cartItems"
+            x-text="$store.header.cartItems"
             class="py-[2px] px-[8px] rounded-full bg-red-400">
           </small>
         </a>
@@ -155,10 +155,10 @@
               Watchlist
 
               <small
-                x-show="watchlistItems"
+                x-show="$store.header.watchlistItems"
                 x-transition
                 x-cloak
-                x-text="watchlistItems"
+                x-text="$store.header.watchlistItems"
                 class="py-[2px] px-[8px] rounded-full bg-red-400">
               </small>
             </a>
@@ -291,9 +291,9 @@
 
           Cart
           <small
-            x-show="cartItems"
+            x-show="$store.header.cartItems"
             x-transition
-            x-text="cartItems"
+            x-text="$store.header.cartItems"
             class="absolute top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-400">
           </small>
         </a>
@@ -361,9 +361,9 @@
               </div>
               Watchlist
               <small
-                x-show="watchlistItems"
+                x-show="$store.header.watchlistItems"
                 x-transition
-                x-text="watchlistItems"
+                x-text="$store.header.watchlistItems"
                 class="py-[2px] px-[8px] rounded-full bg-red-400">
               </small>
             </a>
@@ -510,17 +510,17 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
-          items-center
-          bg-purple-600
-          text-white
-          py-2 px-3
-          rounded
-          transition-colors
-          hover:bg-purple-700
-          active:bg-purple-800
-          shadow-md">
+                  items-center
+                  bg-purple-600
+                  text-white
+                  py-2 px-3
+                  rounded
+                  transition-colors
+                  hover:bg-purple-700
+                  active:bg-purple-800
+                  shadow-md">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6 mr-2"
@@ -579,7 +579,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           btn-primary
@@ -641,7 +641,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           bg-purple-600
@@ -709,7 +709,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           bg-purple-600
@@ -777,7 +777,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           bg-purple-600
@@ -845,7 +845,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           bg-purple-600
@@ -913,7 +913,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           bg-purple-600
@@ -981,7 +981,7 @@
             </svg>
           </button>
           <button
-            @click="addToCart"
+            @click="addToCart()"
             class="flex
           items-center
           bg-purple-600
@@ -1018,12 +1018,14 @@
 
 <!--Notification-->
 <div
-    x-show="toast.visible"
+    x-data="toast"
+    x-show="visible"
     x-transition
     x-cloak
-    class="absolute w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
+    @notify.window="show($event.detail.message)"
+    class="fixed w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
     >
-<div class="font-semibold" x-text="toast.message"></div>
+<div class="font-semibold" x-text="message"></div>
 
 <!--  <div class="text-sm" x-text="toast.message"></div>-->
 <button
@@ -1050,7 +1052,7 @@
 <div>
   <div
     class="absolute left-0 bottom-0 right-0 h-[6px] bg-black/10"
-    :style="{'width': `${toast.percent}%`}"
+    :style="{'width': `${percent}%`}"
   ></div>
 </div>
 </div>
