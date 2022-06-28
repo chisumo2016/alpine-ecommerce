@@ -2,9 +2,10 @@
 document.addEventListener("alpine:init", () => {
   // Header Data
   Alpine.store("header",  {
-    cartItems : 0,
-    cartItems : 0,
-    watchingItems: [],
+    //cartItems : 0,
+    cartItems : Alpine.$persist(0),
+    watchingItems: Alpine.$persist([]),
+    //watchingItems: [],
     get watchlistItems(){
       return this.watchingItems.length
     },
@@ -95,7 +96,10 @@ document.addEventListener("alpine:init", () => {
     addToCart(quantity = 1){
       this.$store.header.cartItems += parseInt(quantity);
       //this.cartItems++;
-      this.$store.toast.show('The item was added into the cart');
+      this.$dispatch('notify',{
+        message: "The item was added into the cart"
+      })
+      //this.$store.toast.show('The item was added into the cart');
     },
   }));
 
