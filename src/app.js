@@ -3,11 +3,23 @@ document.addEventListener("alpine:init", () => {
   // Header Data
   Alpine.store("header",  {
     //cartItems : 0,
-    cartItems : Alpine.$persist(0),
+    //cartItems : Alpine.$persist(0),
+    cartItemsObject : Alpine.$persist({}),
     watchingItems: Alpine.$persist([]),
     //watchingItems: [],
     get watchlistItems(){
       return this.watchingItems.length
+    },
+
+    get cartItems(){
+      return Object.values(this.cartItemsObject)
+        .reduce((accum, next) => accum + parseInt(next.quantity), 0)
+      /*let sum = 0;
+      //array
+      for (let key in this.cartItemsObject){
+        sum += parseInt(this.cartItemsObject[key].quantity)
+      }
+      return sum;*/
     },
   }),
 
@@ -59,49 +71,63 @@ document.addEventListener("alpine:init", () => {
  })),
 
    //Prooduct Item Component
-  Alpine.data('productItem', () => (id) => ({
-    id:id,
-    quantity: 1 ,
+  Alpine.data("productItem",(product) => {
+    return {
+      id: product.id,
+      product,
+      quantity: 1 ,
 
-    get watchlistItems(){
-      return this.$store.watchlistItems
-    },
+      get watchlistItems(){
+        return this.$store.watchlistItems
+      },
 
-    /**Add to  WatchList**/
-    addToWatchlist(id){
-      if (this.$store.header.watchingItems.includes(id)) { //return
-        //remove
-        this.$store.header.watchingItems.splice(
-          this.$store.header.watchingItems.indexOf(id),
-          1
-        );
+      /**Add to  WatchList**/
+      addToWatchlist(id){
+        if (this.$store.header.watchingItems.includes(id)) { //return
+          //remove
+          this.$store.header.watchingItems.splice(
+            this.$store.header.watchingItems.indexOf(id),
+            1
+          );
+          this.$dispatch('notify',{
+            message: "The item was remove from your  watchlist"
+          })
+          //this.$store.toast.show('The item was remove from your  watchlist');
+        }else {
+          //add
+          this.$store.header.watchingItems.push(id);
+
+          this.$dispatch('notify',{
+            message: "The item was added into the watchlist"
+          })
+          //this.$store.toast.show('The item was added into the watchlist');
+        }
+      },
+      isInWatchlist(id){
+        return this.$store.header.watchingItems.includes(id) //true or false
+      },
+
+      /**Add to Cart**/
+      addToCart(id, quantity = 1){
+        //this.$store.header.cartItemsObject[id] =  this.$store.header.cartItemsObject[id] || 0;
+        this.$store.header.cartItemsObject[id] =  this.$store.header.cartItemsObject[id] || {...product,quantity: 0};
+        this.$store.header.cartItemsObject[id] . quantity += parseInt(quantity);
+        //this.cartItems++;
         this.$dispatch('notify',{
-          message: "The item was remove from your  watchlist"
+          message: "The item was added into the cart"
         })
-        //this.$store.toast.show('The item was remove from your  watchlist');
-      }else {
-        //add
-        this.$store.header.watchingItems.push(id);
+        //this.$store.toast.show('The item was added into the cart');
+      },
 
+      /** Remove Item From the Cart**/
+      removeItemFromCart(id){
+        delete this.$store.header.cartItemsObject[id] ;
+        //this.cartItems++;
         this.$dispatch('notify',{
-          message: "The item was added into the watchlist"
+          message: "The item was removed from the cart"
         })
-        //this.$store.toast.show('The item was added into the watchlist');
-      }
-    },
-    isInWatchlist(id){
-      return this.$store.header.watchingItems.includes(id) //true or false
-    },
-
-    /**Add to Cart**/
-    addToCart(id, quantity = 1){
-      this.$store.header.cartItems += parseInt(quantity);
-      //this.cartItems++;
-      this.$dispatch('notify',{
-        message: "The item was added into the cart"
-      })
-      //this.$store.toast.show('The item was added into the cart');
-    },
-  }));
-
+        //this.$store.toast.show('The item was added into the cart');
+      },
+    }
+  });
 });

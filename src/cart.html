@@ -4,13 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../dist/output.css" rel="stylesheet" />
+  <!-- Alpine Plugins -->
+  <script defer src="https://unpkg.com/@alpinejs/persist@3.10.2/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.10.2/dist/cdn.min.js"></script>
+
+  <script src="app.js" defer></script>
+  <!--  Alpine Js-->
+  <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
   <title>Ecommerce Application</title>
   <link href="/dist/app.css" rel="stylesheet" />
+
+  <style>
+    [x-cloak]{
+      display: none !important;
+    }
+  </style>
+
 </head>
 <body class="bg-gray-200">
 
 <!--Header -->
 <header
+  x-data="{mobileMenuOpen: false}"
   class="flex justify-between bg-slate-800 text-white px-4">
   <div>
     <a
@@ -19,7 +34,11 @@
   </div>
 
   <!--Mobile Menu-->
-  <div class="block fixed z-20 top-0 left-[-220px]  bottom-0 h-full w-[220px] bg-slate-900 shadow-2xl  transition-all md:hidden">
+  <div
+    x-show="mobileMenuOpen"
+    x-transition
+    class="block fixed z-20 top-0   bottom-0 h-full w-[220px] bg-slate-900 shadow-2xl  transition-all md:hidden"
+    :class="mobileMenuOpen ? 'left-0' : '-left-[-220px]'">
     <ul class="">
       <li>
         <a class="flex items-center py-2 px-navbar-item transition-all hover:bg-slate-700" href="/src/index.html">
@@ -41,29 +60,43 @@
       <li><a class="block py-2 px-navbar-item transition-all hover:bg-slate-700" href="#">Categories</a></li>
       <li><a class="block py-2 px-navbar-item transition-all hover:bg-slate-700" href="#">Something</a></li>
     </ul>
+
+    <!-- Mobile   -->
     <ul class="">
       <li class="">
         <a
-          class="flex items-center py-2 py-2 px-navbar-item transition-all hover:bg-slate-700"
+          class="relative flex items-center justify-between  py-2 px-navbar-item transition-all hover:bg-slate-700"
           href="/src/cart.html">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-          </svg>
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
           Cart
+          <small
+            x-show="$store.header.cartItems"
+            x-transition
+            x-cloak
+            x-text="$store.header.cartItems"
+            class="py-[2px] px-[8px] rounded-full bg-red-400">
+          </small>
         </a>
       </li>
-      <li class="relative">
+      <li
+        x-data="{open : false}"
+        class="relative">
         <a
-          class="flex justify-between items-center py-2 px-navbar-item transition-all hover:bg-slate-700"
+          @click="open = !open"
+          class="cursor-pointer flex justify-between items-center py-2 px-navbar-item transition-all hover:bg-slate-700"
           href="#">My Account
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +111,12 @@
               d="M19 9l-7 7-7-7" />
           </svg>
         </a>
-        <ul class=" w-full  bg-slate-800 py-2">
+        <!--  Dropdown      -->
+        <ul
+          x-show="open"
+          x-transition
+          x-cloak
+          class=" w-full z-10 right-0 bg-slate-800 py-2">
           <li>
             <a
               href="/src/profile.html"
@@ -101,20 +139,31 @@
           <li>
             <a
               href="/src/watchlist.html"
-              class="flex items-center  py-1 px-4 transition-all hover:bg-slate-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              class="flex items-center justify-between py-1 px-4 transition-all hover:bg-slate-700">
+              <div class="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+
               Watchlist
+
+              <small
+                x-show="$store.header.watchlistItems"
+                x-transition
+                x-cloak
+                x-text="$store.header.watchlistItems"
+                class="py-[2px] px-[8px] rounded-full bg-red-400">
+              </small>
             </a>
           </li>
           <li>
@@ -198,6 +247,7 @@
   </div>
 
   <!--Navigation  -->
+  <!--Mobile  -->
   <nav class="hidden md:block">
     <ul class="grid grid-flow-col">
       <li>
@@ -221,12 +271,14 @@
       <li><a class="block py-navbar-item px-navbar-item transition-all hover:bg-slate-700" href="#">Something</a></li>
     </ul>
   </nav>
+  <!--  Desktop-->
   <nav class="hidden md:block">
     <ul class="grid grid-flow-col items-center">
       <li class="">
         <a
-          class="flex items-center block py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
+          class="relative flex items-center block py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
           href="/src/cart.html">
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 mr-2"
@@ -239,12 +291,22 @@
               stroke-linejoin="round"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
+
           Cart
+          <small
+            x-show="$store.header.cartItems"
+            x-transition
+            x-text="$store.header.cartItems"
+            class="absolute top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-400">
+          </small>
         </a>
       </li>
-      <li class="relative">
+      <li
+        class="relative"
+        x-data="{ open: false}">
         <a
-          class="flex items-center py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
+          @click="open = !open"
+          class="cursor-pointer flex items-center py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
           href="#">My Account
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +321,10 @@
               d="M19 9l-7 7-7-7" />
           </svg>
         </a>
-        <ul class="absolute w-40 right-0  bg-slate-800 py-2 z-10">
+        <ul  x-show="open"
+             x-transition
+             @click.outside="open = false"
+             class="absolute w-40 right-0  bg-slate-800 py-2 z-10">
           <li>
             <a
               href="/src/profile.html"
@@ -282,20 +347,28 @@
           <li>
             <a
               href="/src/watchlist.html"
-              class="flex items-center  py-1 px-4 transition-all hover:bg-slate-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              class="flex items-center justify-between py-1 px-4 transition-all hover:bg-slate-700">
+              <div class="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
               Watchlist
+              <small
+                x-show="$store.header.watchlistItems"
+                x-transition
+                x-text="$store.header.watchlistItems"
+                class="py-[2px] px-[8px] rounded-full bg-red-400">
+              </small>
             </a>
           </li>
           <li>
@@ -378,7 +451,9 @@
     </ul>
   </nav>
   <!--  Toggle    -->
-  <button class="block md:hidden">
+  <button
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    class="block md:hidden">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6"
@@ -394,128 +469,87 @@
   </button>
 </header>
 
-<div class="container mx-auto lg:w-2/3 p-5">
-    <h1 class="text-3xl font-bold mb-2">My Cart Items</h1>
-    <div>
-      <div class="bg-white rounded-lg p-3">
-        <!--  Cart Item    -->
-        <div class="flex flex-col items-center gap-4 sm:flex-col">
-          <img src="/src/images/1_1.jpeg" alt="" class="w-36">
-          <div class="flex flex-col justify-between ">
-            <div class="flex justify-between mb-3">
-              <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
-              <span class="text-lg font-semibold"> £ 17.99 </span>
-            </div>
-            <div class="flex justify-between items-center">
-              <!--  Input Group-->
-              <div class="flex items-center">
-                Qty:
-                <select name="" id="2" class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
-              <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
-            </div>
-          </div>
-        </div>
-        <!-- End Cart Item    -->
-        <hr class="my-3">
-        <div class="flex flex-col items-center gap-4 sm:flex-col">
-          <img src="/src/images/1_1.jpeg" alt="" class="w-36">
-          <div class="flex flex-col justify-between ">
-            <div class="flex justify-between mb-3">
-              <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
-              <span class="text-lg font-semibold"> £ 17.99 </span>
-            </div>
-            <div class="flex justify-between items-center">
-              <!--  Input Group-->
-              <div class="flex items-center">
-                Qty:
-                <select name="" id="" class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
-              <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
-            </div>
-          </div>
-        </div>
-        <hr class="my-3">
-        <div class="flex flex-col items-center gap-4 sm:flex-col">
-          <img src="/src/images/1_3.jpeg" alt="" class="w-36">
-          <div class="flex flex-col justify-between ">
-            <div class="flex justify-between mb-3">
-              <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
-              <span class="text-lg font-semibold"> £ 17.99 </span>
-            </div>
-            <div class="flex justify-between items-center">
-              <!--  Input Group-->
-              <div class="flex items-center">
-                Qty:
-                <select name="" id="" class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
-              <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
-            </div>
-          </div>
-        </div>
-        <hr class="my-3">
-        <div class="flex flex-col items-center gap-4 sm:flex-col">
-          <img src="/src/images/1_1.jpeg" alt="" class="w-36">
-          <div class="flex flex-col justify-between ">
-            <div class="flex justify-between mb-3">
-              <h3>Logitech G502 HERO High Performance Wired Gaming Mouse , Hero 25K Sensor, 25, 600 DPI , RGB, Adjustable Wight, 11</h3>
-              <span class="text-lg font-semibold"> £ 17.99 </span>
-            </div>
-            <div class="flex justify-between items-center">
-              <!--  Input Group-->
-              <div class="flex items-center">
-                Qty:
-                <select name="" id="" class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
-              <a href="#" class="text-purple-600 hover:text-purple-500">Remove</a>
-            </div>
-          </div>
-        </div>
+<main class="p-5">
+  <div class="container lg:w-2/3 mx-auto xl:w-2/3">
+    <h1 class="text-3xl font-bold mb-2">Your Cart Items</h1>
 
-        <div class="border-t border-gray-300 mt-5 pt-5">
-          <div class="flex justify-between">
-            <span class="font-bold">Subtotal</span>
-            <span>$ 167.88</span>
+    <div
+        x-data="{
+          //items:[],
+          get items(){  //init
+          //debugger;
+             return  Object.values(this.$store.header.cartItemsObject)
+             //this.items = Object.values(this.$store.header.cartItemsObject)
+           },
+           get total(){
+                return this.items.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
+           }
+          }"
+        class="bg-white rounded-lg p-4 shadow">
+        <div>
+          <!--  Product Item    -->
+          <template x-for="product of items" :key="product.id">
+           <div>
+             <div
+               x-data="productItem(product)"
+               class="flex flex-col sm:flex-row items-center gap-4 ">
+
+               <img :src="product.image" alt="" class="w-36">
+<!--               <img src="/src/images/1_1.jpeg" alt="" class="w-36">-->
+               <div class="flex flex-col justify-between ">
+                 <div class="flex justify-between mb-3">
+                   <h3 x-text="product.title">
+
+                   </h3>
+                   <span class="text-lg font-semibold">
+                      $<span x-text="product.price"></span>
+                   </span>
+                 </div>
+                  <!--   Quantity  -->
+                 <div class="flex justify-between items-center">
+                   <!--  Input Group-->
+                   <div class="flex items-center">
+                     Qty:
+                     <select
+                       x-model="product.quantity"
+                       name=""
+                       id="2"
+                       class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="3">3</option>
+                       <option value="4">4</option>
+                       <option value="5">5</option>
+                       <option value="6">6</option>
+                       <option value="7">7</option>
+                     </select>
+                   </div>
+                   <a
+                     @click.prevent="removeItemFromCart(id)"
+                     href="#"
+                     class="text-purple-600 hover:text-purple-500">Remove</a>
+                 </div>
+               </div>
+             </div>
+             <hr class="my-5">
+           </div>
+            <!-- End Cart Item    -->
+
+          </template>
+
+          <div class="border-t border-gray-300 mt-5 pt-5">
+            <div class="flex justify-between">
+              <span class="font-semibold">Subtotal</span>
+              <span class="text-xl" x-text="`$${total}`"></span>
+            </div>
+            <p class="text-gray-500 mb-6">
+              Shipping and tax will be applied on checkout
+            </p>
           </div>
-          <p>
-            Shipping and tax will be applied on checkout
-          </p>
+          <button type="submit" class="btn-primary w-full py-3 text-lg"> Proceed to Checkout</button>
         </div>
-        <button class="btn-primary w-full mt-3"> Checkout</button>
       </div>
-    </div>
-</div>
+  </div>
+</main>
 </body>
 </html>
