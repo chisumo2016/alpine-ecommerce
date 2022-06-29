@@ -82,11 +82,13 @@ document.addEventListener("alpine:init", () => {
       },
 
       /**Add to  WatchList**/
-      addToWatchlist(id){
-        if (this.$store.header.watchingItems.includes(id)) { //return
+      addToWatchlist(){
+        //this.$store.header.watchingItems.includes(product)
+        if (this.isInWatchlist()) { //return
           //remove
           this.$store.header.watchingItems.splice(
-            this.$store.header.watchingItems.indexOf(id),
+            this.$store.header.watchingItems.findIndex((p) => p.id === product.id),
+            //this.$store.header.watchingItems.indexOf(product),
             1
           );
           this.$dispatch('notify',{
@@ -94,8 +96,8 @@ document.addEventListener("alpine:init", () => {
           })
           //this.$store.toast.show('The item was remove from your  watchlist');
         }else {
-          //add
-          this.$store.header.watchingItems.push(id);
+          //add into array
+          this.$store.header.watchingItems.push(product);
 
           this.$dispatch('notify',{
             message: "The item was added into the watchlist"
@@ -103,8 +105,9 @@ document.addEventListener("alpine:init", () => {
           //this.$store.toast.show('The item was added into the watchlist');
         }
       },
-      isInWatchlist(id){
-        return this.$store.header.watchingItems.includes(id) //true or false
+      isInWatchlist(){
+        return this.$store.header.watchingItems.find((p) => p.id === product.id); //true or false
+        //return this.$store.header.watchingItems.includes(product) //true or false
       },
 
       /**Add to Cart**/
@@ -120,13 +123,20 @@ document.addEventListener("alpine:init", () => {
       },
 
       /** Remove Item From the Cart**/
-      removeItemFromCart(id){
-        delete this.$store.header.cartItemsObject[id] ;
+      removeItemFromCart(){
+        delete this.$store.header.cartItemsObject[this.id] ;
         //this.cartItems++;
         this.$dispatch('notify',{
           message: "The item was removed from the cart"
         })
         //this.$store.toast.show('The item was added into the cart');
+      },
+
+      /** Remove Item From the  Watchlists**/
+      removeFromWatchlist(){
+        this.$store.header.watchingItems.splice(
+          this.$store.header.watchingItems.findIndex((p) => p.id === this.id), 1 // this.id ni sawa product.id
+        );
       },
     }
   });
