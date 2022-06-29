@@ -21,6 +21,7 @@ document.addEventListener("alpine:init", () => {
       }
       return sum;*/
     },
+
   }),
 
     // Toast Data Component
@@ -114,7 +115,9 @@ document.addEventListener("alpine:init", () => {
       addToCart(id, quantity = 1){
         //this.$store.header.cartItemsObject[id] =  this.$store.header.cartItemsObject[id] || 0;
         this.$store.header.cartItemsObject[id] =  this.$store.header.cartItemsObject[id] || {...product,quantity: 0};
-        this.$store.header.cartItemsObject[id] . quantity += parseInt(quantity);
+        this.$store.header.cartItemsObject[id].quantity =
+          parseInt(this.$store.header.cartItemsObject[id].quantity) + parseInt(quantity);
+        //this.$store.header.cartItemsObject[id] . quantity += parseInt(quantity);
         //this.cartItems++;
         this.$dispatch('notify',{
           message: "The item was added into the cart"

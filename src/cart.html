@@ -490,6 +490,7 @@
           <!--  Product Item    -->
           <template x-for="product of items" :key="product.id">
            <div>
+             <!--               x-init="console.log(product)"-->
              <div
                x-data="productItem(product)"
                class="flex flex-col sm:flex-row items-center gap-4 ">
@@ -510,19 +511,23 @@
                    <!--  Input Group-->
                    <div class="flex items-center">
                      Qty:
-                     <select
+                     <input
+                       type="number"
                        x-model="product.quantity"
-                       name=""
-                       id="2"
-                       class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">
-                       <option value="1">1</option>
-                       <option value="2">2</option>
-                       <option value="3">3</option>
-                       <option value="4">4</option>
-                       <option value="5">5</option>
-                       <option value="6">6</option>
-                       <option value="7">7</option>
-                     </select>
+                       class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600 w-16">
+<!--                     <select-->
+<!--                       x-model="product.quantity"-->
+<!--                       name=""-->
+<!--                       id="2"-->
+<!--                       class="ml-3 py-1 border-gray-200 focus:border-purple-600 focus:ring-purple-600">-->
+<!--                       <option value="1">1</option>-->
+<!--                       <option value="2">2</option>-->
+<!--                       <option value="3">3</option>-->
+<!--                       <option value="4">4</option>-->
+<!--                       <option value="5">5</option>-->
+<!--                       <option value="6">6</option>-->
+<!--                       <option value="7">7</option>-->
+<!--                     </select>-->
                    </div>
                    <a
                      @click.prevent="removeItemFromCart()"
