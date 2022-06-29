@@ -4,13 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../dist/output.css" rel="stylesheet" />
+  <!-- Alpine Plugins -->
+  <script defer src="https://unpkg.com/@alpinejs/persist@3.10.2/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.10.2/dist/cdn.min.js"></script>
+
+  <script src="app.js" defer></script>
+  <!--  Alpine Js-->
+  <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
   <title>Ecommerce Application</title>
   <link href="/dist/app.css" rel="stylesheet" />
+
+  <style>
+    [x-cloak]{
+      display: none !important;
+    }
+  </style>
+
 </head>
 <body class="bg-gray-200">
 
 <!--Header -->
 <header
+  x-data="{mobileMenuOpen: false}"
   class="flex justify-between bg-slate-800 text-white px-4">
   <div>
     <a
@@ -19,8 +34,12 @@
   </div>
 
   <!--Mobile Menu-->
-  <div class="block fixed z-20 top-0 left-[-220px]  bottom-0 h-full w-[220px] bg-slate-900 shadow-2xl  transition-all md:hidden">
-    <ul class="">
+  <div
+    x-show="mobileMenuOpen"
+    x-transition
+    class="block fixed z-20 top-0   bottom-0 h-full w-[220px] bg-slate-900 shadow-2xl  transition-all md:hidden"
+    :class="mobileMenuOpen ? 'left-0' : '-left-[-220px]'" >
+    <ul>
       <li>
         <a class="flex items-center py-2 px-navbar-item transition-all hover:bg-slate-700" href="/src/index.html">
           <svg
@@ -41,29 +60,43 @@
       <li><a class="block py-2 px-navbar-item transition-all hover:bg-slate-700" href="#">Categories</a></li>
       <li><a class="block py-2 px-navbar-item transition-all hover:bg-slate-700" href="#">Something</a></li>
     </ul>
+
+    <!-- Mobile   -->
     <ul class="">
       <li class="">
         <a
-          class="flex items-center py-2 py-2 px-navbar-item transition-all hover:bg-slate-700"
+          class="relative flex items-center justify-between  py-2 px-navbar-item transition-all hover:bg-slate-700"
           href="/src/cart.html">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-          </svg>
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
           Cart
+          <small
+            x-show="$store.header.cartItems"
+            x-transition
+            x-cloak
+            x-text="$store.header.cartItems"
+            class="py-[2px] px-[8px] rounded-full bg-red-400">
+          </small>
         </a>
       </li>
-      <li class="relative">
+      <li
+        x-data="{open : false}"
+        class="relative">
         <a
-          class="flex justify-between items-center py-2 px-navbar-item transition-all hover:bg-slate-700"
+          @click="open = !open"
+          class="cursor-pointer flex justify-between items-center py-2 px-navbar-item transition-all hover:bg-slate-700"
           href="#">My Account
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +111,12 @@
               d="M19 9l-7 7-7-7" />
           </svg>
         </a>
-        <ul class=" w-full  bg-slate-800 py-2">
+        <!--  Dropdown      -->
+        <ul
+          x-show="open"
+          x-transition
+          x-cloak
+          class=" w-full z-10 right-0 bg-slate-800 py-2">
           <li>
             <a
               href="/src/profile.html"
@@ -101,20 +139,31 @@
           <li>
             <a
               href="/src/watchlist.html"
-              class="flex items-center  py-1 px-4 transition-all hover:bg-slate-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              class="flex items-center justify-between py-1 px-4 transition-all hover:bg-slate-700">
+              <div class="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+
               Watchlist
+
+              <small
+                x-show="$store.header.watchlistItems"
+                x-transition
+                x-cloak
+                x-text="$store.header.watchlistItems"
+                class="py-[2px] px-[8px] rounded-full bg-red-400">
+              </small>
             </a>
           </li>
           <li>
@@ -198,6 +247,7 @@
   </div>
 
   <!--Navigation  -->
+  <!--Mobile  -->
   <nav class="hidden md:block">
     <ul class="grid grid-flow-col">
       <li>
@@ -221,12 +271,14 @@
       <li><a class="block py-navbar-item px-navbar-item transition-all hover:bg-slate-700" href="#">Something</a></li>
     </ul>
   </nav>
+  <!--  Desktop-->
   <nav class="hidden md:block">
     <ul class="grid grid-flow-col items-center">
       <li class="">
         <a
-          class="flex items-center block py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
+          class="relative flex items-center block py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
           href="/src/cart.html">
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 mr-2"
@@ -239,12 +291,22 @@
               stroke-linejoin="round"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
+
           Cart
+          <small
+            x-show="$store.header.cartItems"
+            x-transition
+            x-text="$store.header.cartItems"
+            class="absolute top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-400">
+          </small>
         </a>
       </li>
-      <li class="relative">
+      <li
+        class="relative"
+        x-data="{ open: false}">
         <a
-          class="flex items-center py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
+          @click="open = !open"
+          class="cursor-pointer flex items-center py-navbar-item px-navbar-item transition-all hover:bg-slate-700"
           href="#">My Account
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +321,10 @@
               d="M19 9l-7 7-7-7" />
           </svg>
         </a>
-        <ul class="absolute w-40 right-0  bg-slate-800 py-2 z-10">
+        <ul  x-show="open"
+             x-transition
+             @click.outside="open = false"
+             class="absolute w-40 right-0  bg-slate-800 py-2 z-10">
           <li>
             <a
               href="/src/profile.html"
@@ -282,20 +347,28 @@
           <li>
             <a
               href="/src/watchlist.html"
-              class="flex items-center  py-1 px-4 transition-all hover:bg-slate-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              class="flex items-center justify-between py-1 px-4 transition-all hover:bg-slate-700">
+              <div class="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
               Watchlist
+              <small
+                x-show="$store.header.watchlistItems"
+                x-transition
+                x-text="$store.header.watchlistItems"
+                class="py-[2px] px-[8px] rounded-full bg-red-400">
+              </small>
             </a>
           </li>
           <li>
@@ -378,7 +451,9 @@
     </ul>
   </nav>
   <!--  Toggle    -->
-  <button class="block md:hidden">
+  <button
+    @click="mobileMenuOpen = !mobileMenuOpen"
+    class="block md:hidden">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6"
@@ -394,45 +469,74 @@
   </button>
 </header>
 
- <div class="w-full sm:w-[400px] px-5 w-[400px] mx-auto mt-16 text-center">
-   <h2 class="text-2xl font-semibold mb-2">Create a New Account</h2>
-   <p class="mb-4">
-     or
-     <a href="/src/login.html.html"
-        class="text-purple-600 hover:text-purple-500">
-       Login with existing one
-     </a>
-   </p>
-   <form action="/src/signup.html" method="post">
-     <div class="mb-3">
-       <input
-         class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
-         type="text"
-         placeholder="Your Name">
-     </div>
-     <div class="mb-3">
-       <input
-         class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
-         type="text"
-         placeholder="Your Email">
-     </div>
-     <div class="mb-3">
-       <input
-         class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
-         type="password"
-         placeholder="Password">
-     </div>
-     <div class="mb-3">
-       <input
-         class="w-full rounded border-gray-300 focus:border-purple-600 focus:ring-purple-600"
-         type="password"
-         placeholder="Repeat Your Password">
-     </div>
+<main class="p-5">
+  <div class="w-full sm:w-[400px] w-[400px] mx-auto mt-16 text-center">
+    <h2 class="text-2xl font-semibold mb-2">Create a New Account</h2>
+    <p class="mb-4">
+      or
+      <a href="/src/login.html.html"
+         class="text-purple-600 hover:text-purple-500">
+        Login with existing one
+      </a>
+    </p>
+    <form
+      x-data="signupForm"
+      @submit.prevent="submit"
+      action=""
+      method="post">
+      <div class="mb-3">
+        <input
+          x-model="form.name"
+          name="name"
+          @input="validateName()"
+          class="w-full rounded-md border-gray-300 focus:outline-none"
+          :class="errors.name ? errorClasses :  (form.name ?successClasses :  defaultClasses)"
+          type="text"
+          placeholder="Your Name">
 
-     <button class=" flex items-center btn-emerald mt-3 hover:bg-emerald justify-center btn-primary w-full">
-       Signup
-     </button>
-   </form>
- </div>
+        <small x-show="errors.name" x-text="errors.name" class="text-red-500"></small>
+      </div>
+
+      <div class="mb-3">
+        <input
+          x-model="form.email"
+          name="email"
+          @input="validateEmail()"
+          class="w-full rounded-md border-gray-300 focus:outline-none"
+          :class="errors.email ? errorClasses :  (form.email ?successClasses :  defaultClasses)"
+          type="text"
+          placeholder="Your Email">
+        <small x-show="errors.email" x-text="errors.email" class="text-red-500"></small>
+      </div>
+
+      <div class="mb-3">
+        <input
+          x-model="form.password"
+          name="password"
+          @input="validatePassword()"
+          class="w-full rounded-md border-gray-300 focus:outline-none"
+          :class="errors.password ? errorClasses :  (form.password ?successClasses :  defaultClasses)"
+          type="password"
+          placeholder="Password">
+        <small x-if="errors.password" x-text="errors.password" class="text-red-500"></small>
+      </div>
+      <div class="mb-3">
+        <input
+          x-model="form.password_repeat"
+          @input="validatePasswordRepeat()"
+          class="w-full rounded-md border-gray-300 focus:outline-none"
+          :class="errors.name ? errorClasses :  (form.name ?successClasses :  defaultClasses)"
+          type="password"
+          name="password_repeat"
+          placeholder="Repeat Your Password">
+        <small x-if="errors.password_repeat" x-text="errors.password_repeat" class="text-red-500"></small>
+      </div>
+
+      <button class=" flex items-center btn-emerald mt-3 hover:bg-emerald justify-center btn-primary w-full">
+        Signup
+      </button>
+    </form>
+  </div>
+</main>
 </body>
 </html>
